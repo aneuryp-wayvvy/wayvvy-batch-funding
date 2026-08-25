@@ -368,34 +368,21 @@
       </div>
     </div>
 
-    <div class="card">
-      <h2 style="margin-top:0;color:#171a18">Next-Day Funding Cutoff Reference — Selected Backend Only</h2>
+    <div class="card" id="fundingReferenceCard" style="display:none;">
+      <h2 id="fundingReferenceTitle" style="margin-top:0;color:#171a18">Funding Cutoff Reference</h2>
+
       <p class="footer-note">
-        The funding cutoff is the official processing deadline. For operational scheduling, set the device to close
-        <strong>before the applicable deadline</strong> according to the rules shown for that configuration.
+        The funding cutoff is the official processing deadline. For operational scheduling,
+        set the device to close <strong>before the applicable deadline</strong>
+        according to the rules shown for that configuration.
       </p>
+
       <div id="fundingReference"></div>
-      <div class="warning">
-  <strong>North Backend Funding Profiles:</strong><br><br>
 
-  <strong>TS — Same-Day Funding:</strong>
-  Transactions can be included up to the TS cutoff shown above (typically 2:00 AM ET).
-  Funds are deposited later that same calendar day, generally after 12:00 PM.
-  TS has an additional monthly cost of <strong>$25</strong>.<br><br>
-
-  <strong>T6 — Next-Day Funding:</strong>
-  Transactions must close before the applicable T6 cutoff shown above.
-  Funds are generally deposited early the following morning, around <strong>6:00 AM</strong>.
-  T6 has <strong>no additional monthly cost</strong>.<br><br>
-
-  <strong>Operational Note:</strong>
-  T6 is generally preferred when the merchant closes early enough to meet the cutoff and wants funds available early the next morning.
-</div>
+      <div class="warning" id="fundingProfileNote" style="display:none;"></div>
     </div>
 
-
-    
-      <p style="margin:0"><strong>Agents must not offer backend changes.</strong> To move an account from the Omaha Backend to the North Backend, or vice versa, the account must be canceled and boarded again. That cancellation impacts the <strong>attrition rate</strong>. Every request must be escalated to <strong>Back Office + HQ</strong>.</p>
+    <p style="margin:0"><strong>Agents must not offer backend changes.</strong> To move an account from the Omaha Backend to the North Backend, or vice versa, the account must be canceled and boarded again. That cancellation impacts the <strong>attrition rate</strong>. Every request must be escalated to <strong>Back Office + HQ</strong>.</p>
     </div>
 
   
@@ -558,13 +545,44 @@ const northBackendReference = [
 ];
 
 function renderFundingReference(){
+  const card = document.getElementById("fundingReferenceCard");
   const container = document.getElementById("fundingReference");
-  if(!container) return;
+  const note = document.getElementById("fundingProfileNote");
+  const title = document.getElementById("fundingReferenceTitle");
+
+  if(!card || !container || !note || !title) return;
+
+  // No backend selected: keep the entire Funding Reference section hidden.
+  if(!platform.value){
+    card.style.display = "none";
+    container.innerHTML = "";
+    note.innerHTML = "";
+    note.style.display = "none";
+    return;
+  }
+
+  // A backend was selected: show only the information for that backend.
+  card.style.display = "block";
 
   if(platform.value === "North"){
+    title.textContent = "Funding Cutoff Reference — North Backend";
+
     container.innerHTML = `
       <table class="cutoff-table">
-        <thead><tr><th>Frontend</th><th>Also Known As</th><th>TS CUTOFF<br><span style="font-weight:500">Same-Day Funding</span></th><th>T6 CUTOFF<br><span style="font-weight:500">Next-Day Funding</span></th></tr></thead>
+        <thead>
+          <tr>
+            <th>Frontend</th>
+            <th>Also Known As</th>
+            <th>
+              TS CUTOFF<br>
+              <span style="font-weight:500">Same-Day Funding</span>
+            </th>
+            <th>
+              T6 CUTOFF<br>
+              <span style="font-weight:500">Next-Day Funding</span>
+            </th>
+          </tr>
+        </thead>
         <tbody>
           ${northBackendReference.map(r=>`
             <tr>
@@ -572,13 +590,45 @@ function renderFundingReference(){
               <td>${r.alias}</td>
               <td>${r.ts}</td>
               <td class="recommended">${r.t6}</td>
-            </tr>`).join("")}
+            </tr>
+          `).join("")}
         </tbody>
-      </table>`;
+      </table>
+    `;
+
+    note.style.display = "block";
+    note.innerHTML = `
+      <strong>North Backend Funding Profiles:</strong><br><br>
+
+      <strong>TS — Same-Day Funding:</strong>
+      Transactions can be included up to the applicable TS cutoff shown above.
+      Funds are generally deposited later that same calendar day, after 12:00 PM.
+      TS has an additional monthly cost of <strong>$25</strong>.<br><br>
+
+      <strong>T6 — Next-Day Funding:</strong>
+      Transactions must close before the applicable T6 cutoff shown above.
+      Funds are generally deposited early the following morning, around
+      <strong>6:00 AM</strong>.
+      T6 has <strong>no additional monthly cost</strong>.<br><br>
+
+      <strong>Operational Note:</strong>
+      T6 is generally preferred when the merchant closes early enough to meet
+      the cutoff and wants funds available early the next morning.
+    `;
+
   } else if(platform.value === "Omaha"){
+    title.textContent = "Funding Cutoff Reference — Omaha Backend";
+
     container.innerHTML = `
       <table class="cutoff-table">
-        <thead><tr><th>Frontend</th><th>Also Known As</th><th>Next-Day Funding Cutoff Reference</th><th>Operational Note</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Frontend</th>
+            <th>Also Known As</th>
+            <th>Next-Day Funding Cutoff</th>
+            <th>Operational Note</th>
+          </tr>
+        </thead>
         <tbody>
           ${omahaBackendReference.map(r=>`
             <tr>
@@ -586,11 +636,15 @@ function renderFundingReference(){
               <td>${r.alias}</td>
               <td><strong>${r.cutoff}</strong></td>
               <td>${r.note}</td>
-            </tr>`).join("")}
+            </tr>
+          `).join("")}
         </tbody>
-      </table>`;
-  } else {
-    container.innerHTML = '<p class="footer-note">Select a Backend Platform to display its funding/cutoff reference.</p>';
+      </table>
+    `;
+
+    // TS/T6 profiles do not apply to Omaha Backend.
+    note.innerHTML = "";
+    note.style.display = "none";
   }
 }
 
@@ -614,7 +668,7 @@ function fundingForSelection(backend, fe){
   if(backend === "North"){
     const f = northFunding[fe];
     if(f){
-      return "T6 Next-Day Funding: " + f.t6 + " · TS Funding: " + f.ts;
+      return "T6 Next-Day Funding Cutoff: " + f.t6 + " · TS Same-Day Funding Cutoff: " + f.ts;
     }
     return "North funding profile: Pending definition";
   }
