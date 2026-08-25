@@ -375,7 +375,22 @@
         <strong>before the applicable deadline</strong> according to the rules shown for that configuration.
       </p>
       <div id="fundingReference"></div>
-      <div class="warning"><strong>Important:</strong> TS and T6 are funding profiles exclusive to the <strong>North Backend</strong>; they do not apply to the Omaha Backend.</div>
+      <div class="warning">
+  <strong>North Backend Funding Profiles:</strong><br><br>
+
+  <strong>TS — Same-Day Funding:</strong>
+  Transactions can be included up to the TS cutoff shown above (typically 2:00 AM ET).
+  Funds are deposited later that same calendar day, generally after 12:00 PM.
+  TS has an additional monthly cost of <strong>$25</strong>.<br><br>
+
+  <strong>T6 — Next-Day Funding:</strong>
+  Transactions must close before the applicable T6 cutoff shown above.
+  Funds are generally deposited early the following morning, around <strong>6:00 AM</strong>.
+  T6 has <strong>no additional monthly cost</strong>.<br><br>
+
+  <strong>Operational Note:</strong>
+  T6 is generally preferred when the merchant closes early enough to meet the cutoff and wants funds available early the next morning.
+</div>
     </div>
 
 
@@ -549,7 +564,7 @@ function renderFundingReference(){
   if(platform.value === "North"){
     container.innerHTML = `
       <table class="cutoff-table">
-        <thead><tr><th>Frontend</th><th>Also Known As</th><th>TS Funding</th><th>T6 Funding</th></tr></thead>
+        <thead><tr><th>Frontend</th><th>Also Known As</th><th>TS CUTOFF<br><span style="font-weight:500">Same-Day Funding</span></th><th>T6 CUTOFF<br><span style="font-weight:500">Next-Day Funding</span></th></tr></thead>
         <tbody>
           ${northBackendReference.map(r=>`
             <tr>
