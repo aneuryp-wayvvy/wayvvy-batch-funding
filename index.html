@@ -416,84 +416,91 @@ function populatePlatforms(selected=""){
 const defaultPosProfiles = {
   "Loc POS": {
     agents:"Tekcard",
-    support:"Pending definition",
-    transarmor:"Pending definition",
-    tokenType:"Pending definition",
-    comments:"Solo Tekcard puede cambiar el batch."
+    support:"TCP",
+    transarmor:"NO",
+    tokenType:"Not applicable",
+    comments:"TCP provides technical support for Loc POS."
   },
   "Advent POS": {
     agents:"Enrique",
-    support:"Enrique",
+    support:"Advent POS Technical Support / Wayvvy for basic questions",
     transarmor:"YES",
     tokenType:"01,01,M",
-    comments:"If it goes with eWic, send the request to Tekcard Tech Who Provides Support for This Device along with the eWic license. If it goes with DataCap, TransArmor must be enabled. If it goes with BroadPOS, TransArmor is not necessary."
+    comments:"Advent POS is currently used only by Sales Agent Enrique. Wayvvy must ensure the account is boarded correctly. After boarding, Advent POS provides the ongoing technical support; Wayvvy may assist with basic questions."
   },
   "Tabit": {
     agents:"Juan Colome",
-    support:"Juan Colome",
-    transarmor:"Pending definition",
-    tokenType:"Pending definition",
-    comments:""
+    support:"Juan Colome / Wayvvy for basic questions",
+    transarmor:"NO",
+    tokenType:"Not applicable",
+    comments:"Tabit is currently used only by Sales Agent Juan Colome, who provides the primary support. Wayvvy must ensure the account is boarded correctly and may assist with basic questions."
   },
   "Clover": {
     agents:"ALL",
-    support:"Wayvvy / Clover",
+    support:"Wayvvy / Clover Support",
     transarmor:"YES",
     tokenType:"01,01,T",
-    comments:""
+    comments:"All Sales Agents may use Clover. Technical support is provided by Wayvvy and Clover."
   },
   "Dejavoo": {
     agents:"ALL",
-    support:"Wayvvy / Dejavoo",
+    support:"Wayvvy / Dejavoo Support",
     transarmor:"NO",
-    tokenType:"Pending definition",
-    comments:""
+    tokenType:"Not applicable",
+    comments:"All Sales Agents may use Dejavoo. Technical support is provided by Wayvvy and Dejavoo."
   },
   "Valor": {
     agents:"ALL",
-    support:"Wayvvy / Valor",
+    support:"Wayvvy / Valor Support",
     transarmor:"NO",
-    tokenType:"Pending definition",
-    comments:""
+    tokenType:"Not applicable",
+    comments:"All Sales Agents may use Valor. Technical support is provided by Wayvvy and Valor."
   },
   "EBS POS": {
-    agents:"Pearl",
-    support:"Pearl / Wayvvy",
+    agents:"ALL",
+    support:"Wayvvy / Pearl (Developer)",
     transarmor:"NO",
-    tokenType:"Pending definition",
-    comments:""
+    tokenType:"Not applicable",
+    comments:"All Sales Agents may use EBS POS. Technical support is provided by Wayvvy and Pearl, the developer."
   },
   "Smart POS": {
-    agents:"Pending definition",
-    support:"Francisco",
+    agents:"Francisco",
+    support:"Smart POS Technical Support / Wayvvy for basic questions",
     transarmor:"YES",
     tokenType:"01,01,M",
-    comments:""
+    comments:"Smart POS is currently used only by Sales Agent Francisco. Wayvvy must ensure the account is boarded correctly. After boarding, Smart POS provides the ongoing technical support; Wayvvy may assist with basic questions."
   },
   "SamS4 Software": {
-    agents:"Pending definition",
-    support:"Todd",
+    agents:"SamS4",
+    support:"Todd / SamS4 Support",
     transarmor:"YES",
     tokenType:"01,01,M",
-    comments:""
+    comments:"SamS4 Software is currently limited to the SamS4 sales channel. Todd provides the technical support."
   },
   "Lavu POS": {
-    agents:"Pending definition",
-    support:"Pending definition",
-    transarmor:"Pending definition",
-    tokenType:"Pending definition",
-    comments:""
+    agents:"ALL",
+    support:"Wayvvy / Lavu Support",
+    transarmor:"NO",
+    tokenType:"Not applicable",
+    comments:"All Sales Agents may use Lavu POS. Technical support is provided by Wayvvy and Lavu Support."
   },
   "JK POS": {
-    agents:"Pending definition",
-    support:"Pending definition",
-    transarmor:"Pending definition",
-    tokenType:"Pending definition",
-    comments:""
+    agents:"ALL",
+    support:"Wayvvy / Aaron (Developer)",
+    transarmor:"NO",
+    tokenType:"Not applicable",
+    comments:"All Sales Agents may use JK POS. Technical support is provided by Wayvvy and Aaron, the developer."
+  },
+  "PAX": {
+    agents:"ALL",
+    support:"Wayvvy / PAX Support Team",
+    transarmor:"NO",
+    tokenType:"Not applicable",
+    comments:"All Sales Agents may use PAX devices. Technical support is provided by Wayvvy and the PAX Support Team."
   }
 };
 
-const posProfileStorageKey = "wayvvyPosProfilesV4";
+const posProfileStorageKey = "wayvvyPosProfilesV5";
 function loadPosProfiles(){
   try{
     const saved = JSON.parse(localStorage.getItem(posProfileStorageKey) || "{}");
@@ -508,8 +515,8 @@ function getPosProfile(equipmentName){
   return posProfiles[equipmentName] || {
     agents:"Pending definition",
     support:"Pending definition",
-    transarmor:"Pending definition",
-    tokenType:"Pending definition",
+    transarmor:"NO",
+    tokenType:"Not applicable",
     comments:""
   };
 }
