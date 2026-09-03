@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wayvvy Support Operations Hub</title>
+<style>
+:root{--bg:#f5f7f6;--panel:#fff;--ink:#111512;--muted:#69736c;--line:#dfe6e1;--green:#9ee51f;--green2:#78bd0e;--soft:#f2f9e8;--black:#090c0a;--shadow:0 10px 30px rgba(20,32,23,.08)}
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select{font:inherit}.app{min-height:100vh;display:grid;grid-template-columns:285px minmax(0,1fr)}
+.sidebar{position:sticky;top:0;height:100vh;background:linear-gradient(180deg,#090c0a,#111713);color:#fff;border-right:1px solid rgba(158,229,31,.35);display:flex;flex-direction:column;overflow:auto}
+.brand{padding:22px 20px 17px;border-bottom:1px solid #273029}.brand strong{display:block;color:var(--green);font-size:19px;letter-spacing:.07em}.brand span{display:block;color:#aeb9b1;font-size:11px;margin-top:5px;letter-spacing:.04em}
+.search{padding:14px 14px 6px}.search input{width:100%;border:1px solid #344038;background:#151c17;color:#fff;border-radius:11px;padding:11px 12px;outline:none}.search input:focus{border-color:var(--green)}
+.nav-section{padding:12px 10px}.nav-title{padding:0 10px 7px;color:#819087;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.nav-btn{width:100%;display:flex;align-items:center;gap:10px;text-align:left;border:0;border-radius:10px;padding:11px 12px;background:transparent;color:#d8dfda;cursor:pointer;margin:2px 0;font-weight:700;font-size:13px}.nav-btn:hover{background:#172019;color:#fff}.nav-btn.active{background:linear-gradient(90deg,rgba(158,229,31,.18),rgba(158,229,31,.06));color:#fff;box-shadow:inset 3px 0 0 var(--green)}.dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex:0 0 auto}.device-list{padding-left:4px}.device-list .nav-btn{font-weight:600;padding-left:16px}.sidebar-footer{margin-top:auto;padding:15px 20px;border-top:1px solid #273029;color:#8e9a91;font-size:11px;line-height:1.45}
+.main{min-width:0}.topbar{height:74px;position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:16px;padding:0 26px;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}.topbar-copy{min-width:0}.topbar h1{margin:0;font-size:22px;letter-spacing:-.02em}.topbar p{margin:4px 0 0;color:var(--muted);font-size:12px}.badge{margin-left:auto;border:1px solid #dbe7cd;background:var(--soft);color:#477309;border-radius:999px;padding:7px 10px;font-size:11px;font-weight:800}
+.content{padding:24px 26px 40px;max-width:1280px;margin:0 auto}.welcome{background:linear-gradient(120deg,#0b0e0c,#182019);color:white;border-radius:20px;padding:24px;border:1px solid rgba(158,229,31,.3);box-shadow:var(--shadow)}.welcome h2{margin:0 0 8px;font-size:26px}.welcome p{margin:0;color:#bdc8c0;max-width:790px;line-height:1.55;font-size:14px}.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin-top:18px}.quick-card{border:1px solid var(--line);background:#fff;border-radius:15px;padding:16px;box-shadow:0 4px 15px rgba(30,40,33,.035);cursor:pointer}.quick-card:hover{border-color:#bfdc93;transform:translateY(-1px)}.quick-card b{display:block;font-size:14px}.quick-card span{display:block;color:var(--muted);font-size:12px;margin-top:6px;line-height:1.35}
+.device-head{display:flex;gap:18px;align-items:flex-start;margin-bottom:18px}.device-icon{width:55px;height:55px;border-radius:16px;background:var(--soft);border:1px solid #dbeac8;display:grid;place-items:center;font-weight:900;color:#4e8208;font-size:18px}.device-copy h2{margin:0;font-size:28px;letter-spacing:-.025em}.device-copy p{margin:6px 0 0;color:var(--muted);font-size:13px;line-height:1.45}.controls{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:17px 0}.control-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px}.control-card label{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:800;color:#707b73;margin-bottom:8px}.control-card select{width:100%;border:1px solid #d5ded7;border-radius:10px;padding:11px;background:#fff;outline:none}
+.topic-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.topic{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px;cursor:pointer;transition:.15s}.topic:hover{border-color:#bcd991;box-shadow:0 7px 20px rgba(33,48,36,.06);transform:translateY(-1px)}.topic.active{border-color:#9fd651;background:#fbfef7;box-shadow:inset 0 0 0 1px #d9efb8}.topic h3{margin:0;font-size:15px}.topic p{margin:7px 0 0;color:var(--muted);font-size:12px;line-height:1.45}.answer{margin-top:16px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:21px;box-shadow:var(--shadow)}.answer h3{margin:0 0 12px;font-size:19px}.answer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.info{border:1px solid var(--line);border-radius:13px;padding:14px;background:#fcfdfc}.info small{display:block;text-transform:uppercase;letter-spacing:.09em;color:#7b857e;font-size:9px;font-weight:800;margin-bottom:7px}.info strong{font-size:13px;line-height:1.45;display:block}.answer-note{margin-top:13px;border-left:3px solid var(--green);padding:12px 14px;background:#f8fced;border-radius:0 10px 10px 0;font-size:13px;line-height:1.55}.kb-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.action{border:0;border-radius:10px;padding:10px 13px;font-size:12px;font-weight:800;cursor:pointer}.primary{background:var(--green);color:#111}.secondary{background:#eef3ef;color:#3f4942}.disabled{opacity:.55;cursor:not-allowed}
+.frame-wrap{height:calc(100vh - 98px);border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}iframe{width:100%;height:100%;border:0}.empty{padding:50px 20px;text-align:center;color:var(--muted)}
+@media(max-width:1000px){.app{grid-template-columns:230px minmax(0,1fr)}.quick-grid{grid-template-columns:repeat(2,1fr)}.topic-grid,.answer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.app{display:block}.sidebar{position:relative;height:auto}.device-list{display:grid;grid-template-columns:repeat(2,1fr)}.topbar{position:relative}.quick-grid,.topic-grid,.answer-grid,.controls{grid-template-columns:1fr}.content{padding:18px}.badge{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><strong>WAYVVY</strong><span>SUPPORT OPERATIONS HUB</span></div>
+    <div class="search"><input id="navSearch" placeholder="Search devices..." aria-label="Search devices"></div>
+    <div class="nav-section">
+      <div class="nav-title">Operations Tools</div>
+      <button class="nav-btn" data-route="home"><span class="dot"></span>Support Home</button>
+      <button class="nav-btn" data-route="batch"><span class="dot"></span>Batch & Funding Tool</button>
+    </div>
+    <div class="nav-section">
+      <div class="nav-title">Devices / POS</div>
+      <div class="device-list" id="deviceNav"></div>
+    </div>
+    <div class="sidebar-footer">Operational guidance should surface the fast answer here. Full procedures and controlled documentation remain in the Knowledge Base.</div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div class="topbar-copy"><h1 id="pageTitle">Support Home</h1><p id="pageSubtitle">Fast navigation for support, setup and processing guidance.</p></div><div class="badge">Agent View</div></header>
+    <div class="content" id="content"></div>
+  </main>
+</div>
+<script>
+const devices = {
+  "Clover": {abbr:"CL", support:"Wayvvy / Clover Support", transarmor:"YES · 01,01,T", agents:"All Sales Agents", note:"Wayvvy and Clover provide technical support.", models:["General / All Clover","Flex","Duo / Station Duo","Other Clover"]},
+  "Valor": {abbr:"VL", support:"Wayvvy / Valor Support", transarmor:"NO", agents:"All Sales Agents", note:"Wayvvy and Valor provide technical support.", models:["General / All Valor","Other / Select model"]},
+  "Dejavoo": {abbr:"DJ", support:"Wayvvy / Dejavoo Support", transarmor:"NO", agents:"All Sales Agents", note:"Dejavoo uses iPOS for terminal management in the current Batch & Funding logic.", models:["General / All Dejavoo","P1","P5","P8","Other Dejavoo"]},
+  "PAX": {abbr:"PX", support:"Wayvvy / PAX Support Team", transarmor:"NO", agents:"All Sales Agents", note:"PAX devices use PAXSTORE in the current Batch & Funding logic.", models:["General / All PAX","A35","A3xx family","Other PAX"]},
+  "EBS POS": {abbr:"EB", support:"Wayvvy / Pearl (Developer)", transarmor:"NO", agents:"All Sales Agents", note:"Technical support is provided by Wayvvy and Pearl.", models:["General / EBS POS"]},
+  "JK POS": {abbr:"JK", support:"Wayvvy / Aaron (Developer)", transarmor:"NO", agents:"All Sales Agents", note:"Technical support is provided by Wayvvy and Aaron. Batch time is configured on the JK POS terminal.", models:["General / JK POS"]},
+  "Lavu POS": {abbr:"LV", support:"Wayvvy / Lavu Support", transarmor:"NO", agents:"All Sales Agents", note:"Wayvvy and Lavu Support provide technical support.", models:["General / Lavu POS"]},
+  "Smart POS": {abbr:"SP", support:"Smart POS Technical Support / Wayvvy basic assistance", transarmor:"YES · 01,01,M", agents:"Francisco", note:"Wayvvy ensures correct boarding; Smart POS provides ongoing technical support after boarding.", models:["General / Smart POS"]},
+  "Advent POS": {abbr:"AD", support:"Advent POS Technical Support / Wayvvy basic assistance", transarmor:"YES · 01,01,M", agents:"Enrique", note:"Wayvvy ensures correct boarding; Advent POS provides ongoing technical support after boarding.", models:["General / Advent POS"]},
+  "Tabit": {abbr:"TB", support:"Juan Colome / Wayvvy basic assistance", transarmor:"NO", agents:"Juan Colome", note:"Primary support is handled by Juan Colome; Wayvvy may assist with basic questions and boarding.", models:["General / Tabit"]},
+  "SamS4 Software": {abbr:"S4", support:"Todd / SamS4 Support", transarmor:"YES · 01,01,M", agents:"SamS4 sales channel", note:"Currently limited to the SamS4 sales channel.", models:["General / SamS4 Software"]},
+  "Loc POS": {abbr:"LP", support:"TCP", transarmor:"NO", agents:"Tekcard", note:"TCP provides technical support for Loc POS.", models:["General / Loc POS"]}
+};
+
+const topics = [
+  {id:"troubleshooting",title:"Troubleshooting",desc:"Symptoms, common issues, diagnostics and escalation path."},
+  {id:"setup",title:"Setup & File Builds",desc:"Configuration, boarding prerequisites, file-build and TMS guidance."},
+  {id:"pricing",title:"Pricing & Fees",desc:"Approved pricing references, program fees and what agents may quote."},
+  {id:"batch",title:"Batch & Funding",desc:"Batch controller, cutoff logic and funding decision workflow."},
+  {id:"howto",title:"How-To / Features",desc:"Feature-specific procedures and product usage guidance."},
+  {id:"kb",title:"Knowledge Base",desc:"Open the controlled KB article when the full procedure is required."}
+];
+
+const content=document.getElementById('content'), title=document.getElementById('pageTitle'), subtitle=document.getElementById('pageSubtitle');
+const esc=s=>String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+
+function buildNav(){
+  const nav=document.getElementById('deviceNav'); nav.innerHTML='';
+  Object.keys(devices).forEach(name=>{const b=document.createElement('button');b.className='nav-btn';b.dataset.device=name;b.dataset.route='device';b.innerHTML='<span class="dot"></span>'+esc(name);b.onclick=()=>goDevice(name);nav.appendChild(b)});
+}
+function setActive(match){document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',match(b)))}
+function home(){
+  location.hash='home'; title.textContent='Support Home'; subtitle.textContent='Fast navigation for support, setup and processing guidance.'; setActive(b=>b.dataset.route==='home');
+  content.innerHTML=`<section class="welcome"><h2>One operational entry point for the support team</h2><p>Select the Batch & Funding Tool or a supported device. The target workflow is: device → model/family → support topic → concise answer → full KB article when needed.</p></section><div class="quick-grid">${Object.keys(devices).slice(0,8).map(n=>`<div class="quick-card" onclick="goDevice('${n.replace(/'/g,"\\'")}')"><b>${esc(n)}</b><span>${esc(devices[n].support)}</span></div>`).join('')}</div>`;
+}
+function batch(){location.hash='batch';title.textContent='Batch & Funding Tool';subtitle.textContent='Existing processing and funding decision workflow.';setActive(b=>b.dataset.route==='batch');content.innerHTML='<div class="frame-wrap"><iframe src="./index.html" title="Batch and Funding Tool"></iframe></div>'}
+function goDevice(name){
+  const d=devices[name]; if(!d)return; location.hash='device='+encodeURIComponent(name); title.textContent=name; subtitle.textContent='Select the model/family and the type of assistance needed.';setActive(b=>b.dataset.device===name);
+  content.innerHTML=`<div class="device-head"><div class="device-icon">${esc(d.abbr)}</div><div class="device-copy"><h2>${esc(name)}</h2><p>${esc(d.note)}</p></div></div>
+  <div class="controls"><div class="control-card"><label>Model / Product Family</label><select id="modelSelect">${d.models.map(m=>`<option>${esc(m)}</option>`).join('')}</select></div><div class="control-card"><label>Support Owner</label><strong>${esc(d.support)}</strong></div></div>
+  <div class="topic-grid">${topics.map(t=>`<div class="topic" data-topic="${t.id}" onclick="showTopic('${name.replace(/'/g,"\\'")}','${t.id}')"><h3>${esc(t.title)}</h3><p>${esc(t.desc)}</p></div>`).join('')}</div><div id="answer"></div>`;
+}
+function showTopic(name,topicId){
+  const d=devices[name], t=topics.find(x=>x.id===topicId); if(!d||!t)return; document.querySelectorAll('.topic').forEach(x=>x.classList.toggle('active',x.dataset.topic===topicId)); const model=document.getElementById('modelSelect')?.value||'General';
+  let body='';
+  if(topicId==='batch') body=`<div class="answer-note"><strong>Use the Batch & Funding decision tool for the authoritative decision path.</strong> Select Backend → Frontend → POS / Device there. This prevents duplicate cutoff logic from being maintained in two places.</div><div class="kb-actions"><button class="action primary" onclick="batch()">Open Batch & Funding Tool</button></div>`;
+  else if(topicId==='kb') body=`<div class="answer-note">The Zoho Learn/KB article link for <strong>${esc(name)}</strong> has not been connected to this prototype yet. The final version should deep-link to the controlled article and may also display a synchronized summary here.</div><div class="kb-actions"><button class="action secondary disabled">KB link pending</button></div>`;
+  else body=`<div class="answer-grid"><div class="info"><small>Device / Model</small><strong>${esc(name)} · ${esc(model)}</strong></div><div class="info"><small>Support Owner</small><strong>${esc(d.support)}</strong></div><div class="info"><small>TransArmor</small><strong>${esc(d.transarmor)}</strong></div></div><div class="answer-note"><strong>${esc(t.title)} content layer:</strong> this is where approved KB steps, common issues, pricing rules, file-build instructions, screenshots, and escalation criteria should be synchronized or linked. The UI is intentionally ready before duplicating unverified KB content.</div><div class="kb-actions"><button class="action secondary disabled">Controlled KB article pending</button></div>`;
+  document.getElementById('answer').innerHTML=`<section class="answer"><h3>${esc(t.title)} — ${esc(name)}</h3>${body}</section>`;
+}
+
+document.querySelectorAll('[data-route="home"]').forEach(b=>b.onclick=home);document.querySelectorAll('[data-route="batch"]').forEach(b=>b.onclick=batch);
+document.getElementById('navSearch').addEventListener('input',e=>{const q=e.target.value.toLowerCase().trim();document.querySelectorAll('#deviceNav .nav-btn').forEach(b=>b.style.display=b.textContent.toLowerCase().includes(q)?'flex':'none')});
+buildNav();
+const hash=decodeURIComponent(location.hash.slice(1)); if(hash==='batch')batch(); else if(hash.startsWith('device='))goDevice(hash.slice(7)); else home();
+</script>
+</body>
+</html>
